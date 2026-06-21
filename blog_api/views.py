@@ -1,13 +1,14 @@
 from rest_framework import generics
 from blog.models import Post
 from .serializers import PostSerializer
-from rest_framework.permissions import BasePermission, IsAdminUser,DjangoModelPermissionsOrAnonReadOnly
+from rest_framework.permissions import SAFE_METHODS, BasePermission, IsAdminUser,DjangoModelPermissionsOrAnonReadOnly
 
 class CustomUserPermission(BasePermission):
     def has_object_permission(self, request, view, obj):
-        if request.method in ['GET','POST','PUT','DELETE']:
-            return request.user and request.user.is_staff
-        return True
+        if request.method in SAFE_METHODS:
+            return True
+        return obj.author == request.user 
+        
 
 class PostList(generics.ListCreateAPIView):
     permission_classes = [CustomUserPermission]

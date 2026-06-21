@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.conf import settings
 
 # Create your models here.
 
@@ -23,7 +23,7 @@ class Post(models.Model):
     published_at = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=10, choices=[('draft', 'Draft'), ('published', 'Published')], default='Published')
     category = models.ForeignKey(Category, on_delete=models.PROTECT, default = 1,related_name='posts')   
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts')  
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='posts')  
     objects = models.Manager() # The default manager.
     postobjects = PostObjects() # Our custom manager.
 

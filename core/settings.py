@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'blog',
     'blog_api',
     'rest_framework',
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -119,6 +120,8 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+AUTH_USER_MODEL = 'users.NewUser'
+
 REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.IsAuthenticatedOrReadOnly",
@@ -127,3 +130,5 @@ REST_FRAMEWORK = {
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ],
 }
+
+Auth_USER_MODEL = 'users.NewUser'
